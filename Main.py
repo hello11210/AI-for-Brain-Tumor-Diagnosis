@@ -120,11 +120,11 @@ print((bothAcc / len(X_test)) * 100)
 
 
 ###### Method 2: Train a model on the training dataset. Train a second model on the data the first model predicted wrong on ######
-###### Train a third model to predict which of the first two models to use depending on an MRI scan ######
+###### Train a third model to predict which of the first two models to use, depending on the MRI scan ######
 
 linear1 = LogisticRegression(penalty='l2', max_iter=3)
-linear2 = LogisticRegression(penalty='l2', max_iter=3) #Trained on the images that linear1 predicts wrong on
-linearMag = LogisticRegression(penalty='l2', max_iter=3, class_weight={1:35}) #Trained to classify which model to use based on MRI Scan
+linear2 = LogisticRegression(penalty='l2', max_iter=3) # Trained on the images that linear1 predicts wrong on
+linearMag = LogisticRegression(penalty='l2', max_iter=3, class_weight={1:35}) # Trained to classify which model to use based on MRI Scan
 linear1.fit(X_train, y_train)
 l1pred = linear1.predict(X_train)
 X_train2 = []
@@ -133,22 +133,22 @@ acc = accuracy_score(y_train, l1pred) * 100
 print("L1 Training Accuracy: " + str(acc) + "\n")
 
 for i in range(len(X_train)):
-    if(l1pred[i] != y_train[i]): #Make a dataset with all occasions where l1 was wrong
-        y_train2.append(y_train[i]) #Dataset to train linear2 on
-        X_train2.append(X_train[i]) #Dataset to train linear2 on
+    if(l1pred[i] != y_train[i]): # Make a dataset with all occasions where l1 was wrong
+        y_train2.append(y_train[i]) # Dataset to train linear2 on
+        X_train2.append(X_train[i]) # Dataset to train linear2 on
 print(len(X_train2) / len(X_train) * 100)
 #print(len(y_train2) / len(X_train2))
-linear2.fit(X_train2, y_train2) #Fit l2 to this dataset
+linear2.fit(X_train2, y_train2) # Fit linear2 to this dataset
 l2pred = linear2.predict(X_train2)
 acc2 = accuracy_score(y_train2, l2pred) * 100
 print("L2 Training Accuracy: " + str(acc2) + "\n")
 
 magLst = []
-for i in range(len(X_train)): #Make a dataset for linearMag to train on
+for i in range(len(X_train)): # Make a dataset for linearMag to train on
     if(l1pred[i] == y_train[i]):
-        magLst.append(0) #0 means linear1
+        magLst.append(0) # 0 means use linear1
     else:
-        magLst.append(1) #1 means linear2
+        magLst.append(1) # 1 means use linear2
 print("MAGLST: " + str(magLst))
 linearMag.fit(X_train, magLst)
 magPred = linearMag.predict(X_train)
@@ -161,7 +161,7 @@ l1finalTest = []
 l2finalPred = []
 l2finalTest = []
 for i in range(len(X_test)):
-    if(magPredTest[i] == 0):
+    if(magPredTest[i] == 0): # Based on the predictions of linearMag, use either linear1 or linear2
         l1finalPred.append(X_test[i])
         l1finalTest.append(y_test[i])
     else:

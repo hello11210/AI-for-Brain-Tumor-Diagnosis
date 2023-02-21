@@ -8,3 +8,5 @@ Imaging techniques, such as magnetic resonance imaging (MRI) scans and computed 
 Due to the similarity in appearance when viewed under a microscope, variations of brain and spinal cord tumors can be misdiagnosed. Even with skilled pathologists analyzing tissue samples, it is estimated that up to 10% of people with a brain or spinal cord tumor initially receive an incorrect diagnosis. An incorrect diagnosis can have an impact on the outcome of treatment, as tumors that appear similar at a cellular level may require vastly different treatment approaches. Accurate diagnosis is crucial in determining the treatment options. 
 
 The  application of AI technology to analyze large amounts of MRI images can aid in identifying patterns and features that brain tumors share, and can lead to more accurate diagnosis and appropriate treatment options.
+
+The dataset used for this project can be found here: https://www.kaggle.com/datasets/navoneel/brain-mri-images-for-brain-tumor-detection
